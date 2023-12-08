@@ -1,0 +1,98 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rabbaanii Market <% if (role==='admin' ) { %> Admin <%} %>
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+
+<body class="d-flex">
+  <div class="col-3 d-flex flex-column bg-warning-subtle align-items-center p-4">
+    <img src="/images/logo-rb.png" alt="" class="w-25 mt-4">
+    <h3 class="mt-3 text-black fw-bold">Rabbaanii Market</h3>
+    <div class="container d-flex flex-column align-items-center gap-3 mt-5">
+      <a href="/"
+        class="btn-pick text-decoration-none p-2 rounded w-75 text-center border border-black text-black fw-semibold">All
+        Product</a>
+      <a href="/foods"
+        class="btn-pick text-decoration-none p-2 rounded w-75 text-center border border-black text-black fw-semibold">Foods</a>
+      <a href="/drinks"
+        class="btn-pick text-decoration-none p-2 rounded w-75 text-center border border-black text-black fw-semibold">Drinks</a>
+    </div>
+  </div>
+  <!-- Header -->
+  <div class="col-9 overflow-scroll overflow-x-hidden">
+    <nav class="d-flex justify-content-end p-2">
+      <% if (role==='admin' ) { %>
+        <a href="/logout" class="text-decoration-none rounded bg-danger text-white pb-2 pt-2 px-4 mt-1">Logout</a>
+        <% }else { %>
+          <a href="/login" class="text-decoration-none rounded bg-primary text-white pb-2 pt-2 px-4 mt-1">Login as
+            Admin</a>
+          <% } %>
+    </nav>
+    <hr>
+    <div id="carouselExampleSlidesOnly" class="carousel slide m-4" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="5000">
+          <img
+            src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8OHx8fGVufDB8fHx8fA%3D%3D"
+            class="d-block w-100 h-50 rounded object-fit-cover" style="filter: brightness(75%);" alt="">
+        </div>
+        <div class="carousel-item" data-bs-interval="5000">
+          <img
+            src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8OHx8fGVufDB8fHx8fA%3D%3D"
+            class="d-block w-100 h-50 rounded object-fit-cover" style="filter: brightness(75%);" alt="">
+        </div>
+        <div class="carousel-item" data-bs-interval="5000">
+          <img
+            src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8OHx8fGVufDB8fHx8fA%3D%3D"
+            class="d-block w-100 h-50 rounded object-fit-cover" style="filter: brightness(75%);" alt="">
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex gap-5 justify-content-between">
+      <h3 class="fs-3 text-black fw-bold ms-4">All Product</h3>
+      <% if (role === 'admin' ) { %>
+        <a href="/create" class="btn btn-info text-white me-4">Add Menu</a>
+        <% } %>
+    </div>
+
+
+    <div class="d-flex flex-wrap gap-3 mt-3 ms-4 justify-content-center">
+      <% if(data.length) { %>
+
+        <% for(var i=0; i< data.length; i++) {%>
+          <div class="card" style="width: 18rem;">
+            <img src="/images/<%= data[i].image_product  %>" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= data[i].product_name %>
+              </h5>
+              <p class="card-text">
+                Rp. <%= data[i].price_product %>
+              </p>
+              <a href="/detail/<%= data[i].id %>" class="btn btn-primary">Details</a>
+              <% if (role==='admin' ) { %>
+                <a href="/edit/<%= data[i].id %>" class="btn btn-success">Edit</a>
+                <a href="/delete/<%= data[i].id %>" class="btn btn-danger">Delete</a>
+                <% } %>
+            </div>
+          </div>
+          <%} } %>
+    </div>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
